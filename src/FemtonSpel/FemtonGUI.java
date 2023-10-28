@@ -48,21 +48,21 @@ public class FemtonGUI extends JFrame implements MouseListener{
             getImage().getScaledInstance(PLAYAREASIZE/4, PLAYAREASIZE/4, Image.SCALE_SMOOTH));
 
     JPanel femtonPanel = new JPanel();
-    JLabel ruta1 = new JLabel();//("1", SwingConstants.CENTER);
-    JLabel ruta2 = new JLabel();//("2", SwingConstants.CENTER);
-    JLabel ruta3 = new JLabel();//("3", SwingConstants.CENTER);
-    JLabel ruta4 = new JLabel();//("4", SwingConstants.CENTER);
-    JLabel ruta5 = new JLabel();//("5", SwingConstants.CENTER);
-    JLabel ruta6 = new JLabel();//("6", SwingConstants.CENTER);
-    JLabel ruta7 = new JLabel();//("7", SwingConstants.CENTER);
-    JLabel ruta8 = new JLabel();//("8", SwingConstants.CENTER);
-    JLabel ruta9 = new JLabel();//("9", SwingConstants.CENTER);
-    JLabel ruta10 = new JLabel();//("10", SwingConstants.CENTER);
-    JLabel ruta11 = new JLabel();//("11", SwingConstants.CENTER);
-    JLabel ruta12 = new JLabel();//("12", SwingConstants.CENTER);
-    JLabel ruta13 = new JLabel();//("13", SwingConstants.CENTER);
-    JLabel ruta14 = new JLabel();//("14", SwingConstants.CENTER);
-    JLabel ruta15 = new JLabel();//("15", SwingConstants.CENTER);
+    JLabel ruta1 = new JLabel("1", SwingConstants.CENTER);
+    JLabel ruta2 = new JLabel("2", SwingConstants.CENTER);
+    JLabel ruta3 = new JLabel("3", SwingConstants.CENTER);
+    JLabel ruta4 = new JLabel("4", SwingConstants.CENTER);
+    JLabel ruta5 = new JLabel("5", SwingConstants.CENTER);
+    JLabel ruta6 = new JLabel("6", SwingConstants.CENTER);
+    JLabel ruta7 = new JLabel("7", SwingConstants.CENTER);
+    JLabel ruta8 = new JLabel("8", SwingConstants.CENTER);
+    JLabel ruta9 = new JLabel("9", SwingConstants.CENTER);
+    JLabel ruta10 = new JLabel("10", SwingConstants.CENTER);
+    JLabel ruta11 = new JLabel("11", SwingConstants.CENTER);
+    JLabel ruta12 = new JLabel("12", SwingConstants.CENTER);
+    JLabel ruta13 = new JLabel("13", SwingConstants.CENTER);
+    JLabel ruta14 = new JLabel("14", SwingConstants.CENTER);
+    JLabel ruta15 = new JLabel("15", SwingConstants.CENTER);
     JLabel ruta16 = new JLabel("");
     ArrayList<JLabel> rutLista = new ArrayList<>();
     Font f = new Font(null, 3, 20);
@@ -85,7 +85,7 @@ ImageIcon icon1 = new ImageIcon(new ImageIcon("Images/thumbnail_1.jpg").
 
     public FemtonGUI(){
 
-        ruta1.setIcon(icon1);
+        /*ruta1.setIcon(icon1);
         ruta2.setIcon(icon2);
         ruta3.setIcon(icon3);
         ruta4.setIcon(icon4);
@@ -99,7 +99,7 @@ ImageIcon icon1 = new ImageIcon(new ImageIcon("Images/thumbnail_1.jpg").
         ruta12.setIcon(icon12);
         ruta13.setIcon(icon13);
         ruta14.setIcon(icon14);
-        ruta15.setIcon(icon15);
+        ruta15.setIcon(icon15);*/
 
         setSize(PLAYAREASIZE,PLAYAREASIZE);
         setResizable(false);
