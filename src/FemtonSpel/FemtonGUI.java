@@ -13,7 +13,8 @@ import java.util.Collections;
 
 public class FemtonGUI extends JFrame implements MouseListener{
 
-    int test123;
+    int test1;
+    int test2;
     final int PLAYAREASIZE = 400;
     //Icon icon1 = new ImageIcon("Images/thumbnail_small1.jpg");
     ImageIcon icon1 = new ImageIcon(new ImageIcon("Images/thumbnail_1.jpg").
