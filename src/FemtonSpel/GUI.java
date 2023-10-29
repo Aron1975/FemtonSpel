@@ -174,7 +174,6 @@ public class GUI extends JFrame implements MouseListener {
             }
         }
         if (arraySorted) {
-            // All tiles are in the correct order
             JOptionPane.showMessageDialog(this, "Grattis, du vann spelet!");
             createGame();
         }
