@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 public class FemtonGUI extends JFrame implements MouseListener {
 
+    int test1;
+    int test2;
     final int PLAYAREASIZE = 400;
     final int HORIZONTALIMAGESIZE = (PLAYAREASIZE/4)+0;
     final int VERTICALIMAGESIZE = (PLAYAREASIZE/4)+0;
