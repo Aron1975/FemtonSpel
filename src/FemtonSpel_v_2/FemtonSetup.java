@@ -1,9 +1,10 @@
-package FemtonSpel;
+package FemtonSpel_v_2;
 
 // jkdjkfbn
 // kjasvj
 
 import javax.swing.*;
+import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -19,10 +20,12 @@ public class FemtonSetup {
         if(size>2 && size<6) {
             this.size = size;
             this.image = 0;
-            createBricksObjectsAndList();
+            //createBricksObjectsAndList();
         }
     }
-    public void createBricksObjectsAndList() {
+    public ArrayList<Bricks> createBricksObjectsAndList() {
+        Font f = new Font(null, 3, 20);
+        SoftBevelBorder border = new SoftBevelBorder(SoftBevelBorder.RAISED);
         for(int i=0; i<size*size; i++) {
             JLabel jl = new JLabel();
             if(image == 0) {
@@ -32,15 +35,18 @@ public class FemtonSetup {
                     jl.setHorizontalAlignment(SwingConstants.CENTER);
                     jl.setVerticalAlignment(SwingConstants.CENTER);
                     jl.setOpaque(true);
-                    //jl.setFont(f);
+                    jl.setFont(f);
                     jl.setForeground(Color.BLACK);
-                    //jl.setBorder(border);
+                    jl.setBorder(border);
                     jl.setBackground(Color.YELLOW);
+                    System.out.println(jl.getText());
                 }
             }
             Bricks br = new Bricks(jl, i+1);
             bricksList.add(br);
+
         }
+        return bricksList;
     }
 
 }

@@ -1,4 +1,4 @@
-package FemtonSpel;
+package FemtonSpel_v_2;
 
 import javax.swing.*;
 

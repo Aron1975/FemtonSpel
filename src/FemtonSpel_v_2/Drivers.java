@@ -1,14 +1,19 @@
-package FemtonSpel;
+package FemtonSpel_v_2;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Collections;
 
-public class Drivers {
+public class Drivers implements ActionListener, MouseListener {
 
-    public Drivers(){
+    public Drivers(ArrayList<Bricks> list, JPanel jp){
 
     }
-
+/*
     public void newGame(){
         Collections.shuffle(rutLista);
         moveBricks();
@@ -66,5 +71,35 @@ public class Drivers {
             Collections.swap(rutLista, indexOf16, indexOfThis);
             moveBricks();
         }
+    }*/
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

@@ -37,7 +37,7 @@ public class GUI extends JFrame implements MouseListener, ActionListener {
     //</editor-fold>
     ArrayList<JLabel> rutLista = new ArrayList<>();
     Font f = new Font(null, 3, 20);
-    GridLayout gameAreaLayout = new GridLayout(4, 4,0,0);
+    GridLayout gameAreaLayout = new GridLayout(4, 4, 0, 0);
     SoftBevelBorder border = new SoftBevelBorder(SoftBevelBorder.RAISED);
 
     public void runGame(){
