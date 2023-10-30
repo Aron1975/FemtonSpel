@@ -4,24 +4,24 @@ import javax.swing.*;
 
 public class Bricks {
 
-    JPanel brick = new JPanel();
+    JLabel brick = new JLabel();
     private boolean inPosition = true;
-    private int position;
+    private int startPosition;
 
     public Bricks(){
 
     }
 
-    public Bricks(JPanel brick, int position) {
+    public Bricks(JLabel brick, int startPosition) {
         this.brick = brick;
-        this.position = position;
+        this.startPosition = startPosition;
     }
 
-    public JPanel getBrick() {
+    public JLabel getBrick() {
         return brick;
     }
 
-    public void setBrick(JPanel brick) {
+    public void setBrick(JLabel brick) {
         this.brick = brick;
     }
 
@@ -33,12 +33,8 @@ public class Bricks {
         this.inPosition = inPosition;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
+    public int getStartPosition() {
+        return startPosition;
     }
 
     public void changePosition(){
