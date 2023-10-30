@@ -3,12 +3,14 @@ package FemtonSpel;
 import javax.swing.*;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class GUI extends JFrame implements MouseListener {
+public class GUI extends JFrame implements MouseListener, ActionListener {
 
     final int PLAYAREASIZE = 400;
     JPanel femtonPanel = new JPanel();
@@ -33,7 +35,7 @@ public class GUI extends JFrame implements MouseListener {
     JLabel ruta15 = new JLabel();
     JLabel ruta16 = new JLabel();
     //</editor-fold>
-
+    //sdvv
     ArrayList<JLabel> rutLista = new ArrayList<>();
     Font f = new Font(null, 3, 20);
     GridLayout gameAreaLayout = new GridLayout(4, 4,0,0);
@@ -50,7 +52,7 @@ public class GUI extends JFrame implements MouseListener {
     createGame();
     femtonPanel.setLayout(gameAreaLayout);
     newPanel.add(knapp1);
-
+    knapp1.addActionListener(this);
     newPanel.setLayout(new FlowLayout());
 
     add(femtonPanel);
@@ -131,7 +133,7 @@ public class GUI extends JFrame implements MouseListener {
         rutLista.add(ruta16);
         //</editor-fold>
 
-        Collections.shuffle(rutLista);
+        //Collections.shuffle(rutLista);
         for (JLabel l : rutLista) {
             l.setOpaque(true);
             l.setFont(f);
@@ -144,6 +146,11 @@ public class GUI extends JFrame implements MouseListener {
         ruta16.setBackground(Color.DARK_GRAY);
     }
 
+    public void newGame(){
+        Collections.shuffle(rutLista);
+        moveBricks();
+    }
+
     public void moveBricks(){
         try {
             femtonPanel.removeAll();
@@ -151,11 +158,13 @@ public class GUI extends JFrame implements MouseListener {
                 femtonPanel.add(l);
             }
             femtonPanel.revalidate();
-            ;
+
         }catch(Exception e){
             e.printStackTrace();
         }
+        gameWon();
     }
+
     public void gameWon(){
         boolean arraySorted = true;
 
@@ -175,7 +184,7 @@ public class GUI extends JFrame implements MouseListener {
         }
         if (arraySorted) {
             JOptionPane.showMessageDialog(this, "Grattis, du vann spelet!");
-            createGame();
+            //createGame();
         }
     }
 
@@ -223,4 +232,10 @@ public class GUI extends JFrame implements MouseListener {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == knapp1){
+            newGame();
+        }
+    }
 }
