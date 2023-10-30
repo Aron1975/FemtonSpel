@@ -51,7 +51,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         FemtonSetup fs = new FemtonSetup(nrOfBricks, 0);
         bricksList = fs.createBricksObjectsAndList(femtonPanel);
         setListeners();
-        moveBricks();
+        newGame();
 
     }
 
