@@ -13,6 +13,7 @@ public class FemtonSetup {
     ArrayList<Bricks> bricksList = new ArrayList<>();
 
     private int size;
+
     private int image;
     //private Bricks bricks = new Bricks();
 
@@ -26,6 +27,9 @@ public class FemtonSetup {
     public ArrayList<Bricks> createBricksObjectsAndList(JPanel jp) {
         Font f = new Font(null, 3, 20);
         SoftBevelBorder border = new SoftBevelBorder(SoftBevelBorder.RAISED);
+
+        bricksList.clear();
+
         for(int i=0; i<size*size; i++) {
             JLabel jl = new JLabel();
             if(image == 0) {
@@ -42,11 +46,15 @@ public class FemtonSetup {
                     //jl.addMouseListener(new FemtonGraphics());
                 }
             }
-            Bricks br = new Bricks(jl, i+1);
+            Bricks br = new Bricks(jl, i);
             bricksList.add(br);
 
         }
         return bricksList;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
 }

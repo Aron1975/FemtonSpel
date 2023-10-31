@@ -15,15 +15,18 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     ArrayList<Bricks> bricksList = new ArrayList<>();
 
-    int nrOfBricks = 6;
+    int nrOfBricks = 3;
     int blackBrickStartPosition = nrOfBricks * nrOfBricks;
     int blackBrickCurrentPosition;
     final int PLAYAREASIZE = 400;
     JPanel femtonPanel = new JPanel();
     JPanel inputPanel = new JPanel();
     JButton startKnapp = new JButton("Nytt spel");
+    private String sizesMeny[] = {"3x3", "4x4", "5x5", "6x6"};
+    private JComboBox chooseSizeMeny = new JComboBox(sizesMeny);
     GridLayout gameAreaLayout = new GridLayout(nrOfBricks, nrOfBricks, 1, 1);
-    Border gameAreaBorder = new LineBorder(Color.black, 3);
+    Border gameAreaBorder = new LineBorder(Color.black, 1);
+    FemtonSetup fs = new FemtonSetup(nrOfBricks, 0);
 
     public FemtonGraphics() {
 
@@ -35,10 +38,15 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
         femtonPanel.setBorder(gameAreaBorder);
         femtonPanel.setLayout(gameAreaLayout);
+
+        inputPanel.setLayout(new FlowLayout());
         inputPanel.add(startKnapp);
+        inputPanel.add(chooseSizeMeny);
+
+        chooseSizeMeny.addActionListener(this);
+        chooseSizeMeny.setSelectedItem(-1);
         startKnapp.addActionListener(this);
         //startKnapp.addActionListener(new Drivers(bricksList, inputPanel));
-        inputPanel.setLayout(new FlowLayout());
 
         add(femtonPanel);
         add(inputPanel);
@@ -48,7 +56,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        FemtonSetup fs = new FemtonSetup(nrOfBricks, 0);
         bricksList = fs.createBricksObjectsAndList(femtonPanel);
         setListeners();
         newGame();
@@ -94,29 +101,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         checkIfGameWon();
     }
 
-   /* public void gameWon(){
-        boolean arraySorted = true;
-
-        for (int i = 0; i < bricksList.size() - 1; i++) {
-            String currentText = bricksList.get(i).getText();
-            String nextText = bricksList.get(i + 1).getText();
-
-            if (!currentText.isEmpty() && !nextText.isEmpty()) {
-                int currentValue = Integer.parseInt(currentText);
-                int nextValue = Integer.parseInt(nextText);
-
-                if (currentValue > nextValue) {
-                    arraySorted = false;
-                    break;
-                }
-            }
-        }
-        if (arraySorted) {
-            JOptionPane.showMessageDialog(this, "Grattis, du vann spelet!");
-            //createGame();
-        }
-    }*/
-
     public void checkIfGameWon() {
         boolean arraySorted = true;
 
@@ -155,9 +139,43 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         }
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        String selectedSize = (String) chooseSizeMeny.getSelectedItem();
+
+        if (selectedSize != null) {
+            // Clear the old bricks and reset the panel
+            femtonPanel.removeAll();
+
+            if (selectedSize.equalsIgnoreCase("3x3")) {
+                nrOfBricks = 3;
+            } else if (selectedSize.equalsIgnoreCase("4x4")) {
+                nrOfBricks = 4;
+            } else if (selectedSize.equalsIgnoreCase("5x5")) {
+                nrOfBricks = 5;
+            } else if (selectedSize.equalsIgnoreCase("6x6")) {
+                nrOfBricks = 6;
+            }
+
+            // Update the game area layout
+            gameAreaLayout = new GridLayout(nrOfBricks, nrOfBricks, 1, 1);
+
+            // Update the game area border with a fixed thickness of 1
+            gameAreaBorder = new LineBorder(Color.black, 1);
+
+            // Create new Bricks objects and add listeners
+            bricksList = fs.createBricksObjectsAndList(femtonPanel);
+            setListeners();
+
+            // Add the updated panel to the frame and refresh
+            femtonPanel.setLayout(gameAreaLayout);
+            add(femtonPanel);
+            revalidate();
+            repaint();
+            newGame();
+        }
+
         if (e.getSource() == startKnapp) {
             newGame();
         }
@@ -196,4 +214,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     public void mouseExited(MouseEvent e) {
 
     }
+
+
 }
