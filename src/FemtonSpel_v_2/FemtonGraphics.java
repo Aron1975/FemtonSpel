@@ -15,14 +15,14 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     ArrayList<Bricks> bricksList = new ArrayList<>();
 
-    int nrOfBricks = 3;
-    int blackBrickStartPosition = nrOfBricks * nrOfBricks;
+    int gameSize = 3;
+    int blackBrickStartPosition = (gameSize * gameSize);
     int blackBrickCurrentPosition;
     final int PLAYAREASIZE = 400;
     JPanel femtonPanel = new JPanel();
     JPanel inputPanel = new JPanel();
     JButton startKnapp = new JButton("Nytt spel");
-    GridLayout gameAreaLayout = new GridLayout(nrOfBricks, nrOfBricks, 1, 1);
+    GridLayout gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
     Border gameAreaBorder = new LineBorder(Color.black, 3);
 
     public FemtonGraphics() {
@@ -48,7 +48,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        FemtonSetup fs = new FemtonSetup(nrOfBricks, 0);
+        FemtonSetup fs = new FemtonSetup(gameSize, 0);
         bricksList = fs.createBricksObjectsAndList(femtonPanel);
         setListeners();
         moveBricks();
@@ -60,9 +60,12 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         Collections.shuffle(bricksList);
         moveBricks();
         setBlackBrickPosition();
+        if (!isSolvable()) {
+            //System.out.println("NOT Solvable");
+        }
     }
 
-    public void setListeners(){
+    public void setListeners() {
         for (Bricks br : bricksList) {
             br.getBrick().addMouseListener(this);
         }
@@ -118,6 +121,41 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         }
     }*/
 
+    public boolean isSolvable() {
+        int inversions = 0;
+        for (int i = 0; i < gameSize * gameSize; i++) {
+            for (int j = i + 1; j < gameSize * gameSize; j++) {
+                if ((bricksList.get(i).getStartPosition() > bricksList.get(j).getStartPosition()) &&
+                        bricksList.get(i).getStartPosition() != blackBrickStartPosition) {
+                    inversions++;
+                }
+            }
+        }
+        //inversion +=
+        double rad = ((Math.ceil((blackBrickCurrentPosition + 1) / 4)) + 1);
+        System.out.println("Inversions: " + inversions);
+        System.out.println("Svart på rad: " + rad);
+        System.out.println("Inv + rad: " + (inversions + rad));
+        boolean oddNrOfInversions = true;
+        boolean oddNrOfInversionsPlusEmptyRaw = true;
+        if (inversions % 2 == 0) {
+            oddNrOfInversions = false;
+        }
+        if (((rad + inversions) % 2) == 0) {
+            oddNrOfInversionsPlusEmptyRaw = false;
+        }
+        if ((gameSize % 2 != 0) && (!oddNrOfInversions)) {
+            System.out.println("Solvable");
+            return true;
+        }
+        if ((gameSize % 2 == 0) && (!oddNrOfInversions)) {  //?????????????
+            System.out.println("Solvable");
+            return true;
+        }
+        System.out.println("Inv odd: " + oddNrOfInversions + " Inv+raw odd: " + oddNrOfInversionsPlusEmptyRaw);
+        return false;
+    }
+
     public void checkIfGameWon() {
         boolean arraySorted = true;
 
@@ -138,20 +176,24 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     }
 
     public void moveIfMovable(Bricks br) {
-        //int indexOf16 = bricksList.indexOf(ruta16);
         int indexOf16 = blackBrickCurrentPosition;
         int indexOfThis = bricksList.indexOf(br);
-        System.out.println("Nr: " + br.getStartPosition() + " is at: " + indexOfThis);
-        System.out.println("Nr16 is at: " + indexOf16);
-
+        boolean movable = false;
         //if((indexOfThis+1 == indexOf16 && (indexOfThis+1)%4 != 0) || indexOfThis-1 == indexOf16) {
-        if ((indexOfThis + 1 == indexOf16 && (indexOfThis + 1) % nrOfBricks != 0) || (indexOfThis - 1 == indexOf16 && (indexOf16 + 1) % nrOfBricks != 0)) {
-            Collections.swap(bricksList, indexOf16, indexOfThis);
+        if ((indexOfThis + 1 == indexOf16 && (indexOfThis + 1) % gameSize != 0) || (indexOfThis - 1 == indexOf16 && (indexOf16 + 1) % gameSize != 0)) {
+            movable = true;
+          /*  Collections.swap(bricksList, indexOf16, indexOfThis);
             moveBricks();
-            checkIfGameWon();
+            checkIfGameWon();*/
         }
 
-        if ((indexOfThis + nrOfBricks == indexOf16) || indexOfThis - nrOfBricks == indexOf16) {
+        if ((indexOfThis + gameSize == indexOf16) || indexOfThis - gameSize == indexOf16) {
+            movable = true;
+           /* Collections.swap(bricksList, indexOf16, indexOfThis);
+            moveBricks();
+            checkIfGameWon();*/
+        }
+        if (movable) {
             Collections.swap(bricksList, indexOf16, indexOfThis);
             moveBricks();
             checkIfGameWon();
@@ -168,10 +210,8 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Klicked");
-        for(Bricks br: bricksList){
-            if(e.getSource().equals(br.getBrick())){
-                System.out.println("Nr: " + br.getStartPosition());
+        for (Bricks br : bricksList) {
+            if (e.getSource().equals(br.getBrick())) {
                 moveIfMovable(br);
                 break;
             }
