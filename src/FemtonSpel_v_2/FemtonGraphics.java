@@ -15,26 +15,28 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     ArrayList<Bricks> bricksList = new ArrayList<>();
 
-    int gameSize = 3;
+    int newGameCounter = 0;
+    boolean firstStart = true;
+    int gameSize = 4;
     int blackBrickStartPosition = (gameSize * gameSize);
     int blackBrickCurrentPosition;
     final int PLAYAREASIZE = 400;
     JPanel femtonPanel = new JPanel();
     JPanel inputPanel = new JPanel();
     JButton startKnapp = new JButton("Nytt spel");
-    GridLayout gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
-    Border gameAreaBorder = new LineBorder(Color.black, 3);
+    GridLayout gameAreaLayout;// = new GridLayout(gameSize, gameSize, 1, 1);
+    Border gameAreaBorder;// = new LineBorder(Color.black, 3);
 
     public FemtonGraphics() {
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         setMinimumSize(new Dimension(PLAYAREASIZE + 200, PLAYAREASIZE + 200));
 
-        femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
+        /*femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
         femtonPanel.setMinimumSize(femtonPanel.getPreferredSize());
         femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
         femtonPanel.setBorder(gameAreaBorder);
-        femtonPanel.setLayout(gameAreaLayout);
+        femtonPanel.setLayout(gameAreaLayout);  */
         inputPanel.add(startKnapp);
         startKnapp.addActionListener(this);
         //startKnapp.addActionListener(new Drivers(bricksList, inputPanel));
@@ -47,24 +49,58 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+/*
         FemtonSetup fs = new FemtonSetup(gameSize, 0);
         bricksList = fs.createBricksObjectsAndList(femtonPanel);
         setListeners();
-        moveBricks();
+        moveBricks();*/
         //newGame();
 
     }
 
     public void newGame() {
-        Collections.shuffle(bricksList);
-        if (isSolvable()) {
-            moveBricks();
-            setBlackBrickPosition();
-        } else {
-            newGame();
-        }
+        //gameSize = 4;
+        blackBrickStartPosition = (gameSize * gameSize);
+        gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
+        gameAreaBorder = new LineBorder(Color.black, 3);
 
+        femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
+        femtonPanel.setMinimumSize(femtonPanel.getPreferredSize());
+        femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
+        femtonPanel.setBorder(gameAreaBorder);
+        femtonPanel.setLayout(gameAreaLayout);
+       /* inputPanel.add(startKnapp);
+        startKnapp.addActionListener(this);
+        //startKnapp.addActionListener(new Drivers(bricksList, inputPanel));
+        inputPanel.setLayout(new FlowLayout());
+
+        add(femtonPanel);*/
+
+/*
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);*/
+
+        FemtonSetup fs = new FemtonSetup(gameSize, 0);
+        bricksList = fs.createBricksObjectsAndList(femtonPanel);
+        add(inputPanel);
+        setListeners();
+        moveBricks();
+        if (!firstStart) {
+            boolean shuffleOK = false;
+            while (!shuffleOK) {
+                Collections.shuffle(bricksList);
+                if (isSolvable()) {
+                    moveBricks();
+                    setBlackBrickPosition();
+                    shuffleOK = true;
+                } //else {
+                //newGame();
+                // }
+            }
+        }
+        firstStart=false;
     }
 
     public void setListeners() {
@@ -198,6 +234,18 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startKnapp) {
+            if(newGameCounter == 0) {
+                gameSize = 4;
+            }
+            if(newGameCounter == 2) {
+                firstStart = true;
+                gameSize = 3;
+            }
+            if(newGameCounter == 4) {
+                firstStart = true;
+                gameSize = 5;
+            }
+            newGameCounter++;
             newGame();
         }
     }
