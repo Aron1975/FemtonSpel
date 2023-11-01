@@ -61,7 +61,9 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         if (isSolvable()) {
             moveBricks();
             setBlackBrickPosition();
-        }else{newGame();}
+        } else {
+            newGame();
+        }
 
     }
 
@@ -131,7 +133,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
                 }
             }
         }
-        double rad = ((Math.ceil(((double)blackBrickCurrentPosition + 1) / gameSize)));
+        double rad = ((Math.ceil(((double) blackBrickCurrentPosition + 1) / gameSize)));
         System.out.println("Svart på plats: " + blackBrickCurrentPosition);
         System.out.println("Inversions: " + inversions);
         System.out.println("Svart på rad: " + rad);
@@ -214,7 +216,12 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        for (Bricks br : bricksList) {
+            if (e.getSource().equals(br.getBrick())) {
+                moveIfMovable(br);
+                break;
+            }
+        }
     }
 
     @Override
