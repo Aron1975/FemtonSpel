@@ -24,6 +24,8 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     JPanel femtonPanel = new JPanel();
     JPanel inputPanel = new JPanel();
     JButton startKnapp = new JButton("Nytt spel");
+    String gameSizeArray[] = {"3x3", "4x4", "5x5", "6x6"};
+    JComboBox chooseGameSize = new JComboBox(gameSizeArray);
     GridLayout gameAreaLayout;// = new GridLayout(gameSize, gameSize, 1, 1);
     Border gameAreaBorder;// = new LineBorder(Color.black, 3);
 
@@ -38,7 +40,9 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         femtonPanel.setBorder(gameAreaBorder);
         femtonPanel.setLayout(gameAreaLayout);  */
         inputPanel.add(startKnapp);
+        inputPanel.add(chooseGameSize);
         startKnapp.addActionListener(this);
+        chooseGameSize.addActionListener(this);
         //startKnapp.addActionListener(new Drivers(bricksList, inputPanel));
         inputPanel.setLayout(new FlowLayout());
 
@@ -246,6 +250,21 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
                 gameSize = 5;
             }
             newGameCounter++;
+            newGame();
+        }
+
+        String selectedSize = (String) chooseGameSize.getSelectedItem();
+
+        if (selectedSize != null) {
+            if (selectedSize.equalsIgnoreCase("3x3")) {
+                gameSize = 3;
+            } else if (selectedSize.equalsIgnoreCase("4x4")) {
+                gameSize = 4;
+            } else if (selectedSize.equalsIgnoreCase("5x5")) {
+                gameSize = 5;
+            } else if (selectedSize.equalsIgnoreCase("6x6")) {
+                gameSize = 6;
+            }
             newGame();
         }
     }

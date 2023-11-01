@@ -20,6 +20,7 @@ public class FemtonSetup {
         if(size>2 && size<=6) {
             this.size = size;
             this.image = 0;
+
             //createBricksObjectsAndList();
         }
     }
