@@ -26,24 +26,18 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     JButton startKnapp = new JButton("Nytt spel");
     String gameSizeArray[] = {"3x3", "4x4", "5x5", "6x6"};
     JComboBox chooseGameSize = new JComboBox(gameSizeArray);
-    GridLayout gameAreaLayout;// = new GridLayout(gameSize, gameSize, 1, 1);
-    Border gameAreaBorder;// = new LineBorder(Color.black, 3);
+    GridLayout gameAreaLayout;
+    Border gameAreaBorder;
 
     public FemtonGraphics() {
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         setMinimumSize(new Dimension(PLAYAREASIZE + 200, PLAYAREASIZE + 200));
 
-        /*femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
-        femtonPanel.setMinimumSize(femtonPanel.getPreferredSize());
-        femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
-        femtonPanel.setBorder(gameAreaBorder);
-        femtonPanel.setLayout(gameAreaLayout);  */
         inputPanel.add(startKnapp);
         inputPanel.add(chooseGameSize);
         startKnapp.addActionListener(this);
         chooseGameSize.addActionListener(this);
-        //startKnapp.addActionListener(new Drivers(bricksList, inputPanel));
         inputPanel.setLayout(new FlowLayout());
 
         add(femtonPanel);
@@ -53,12 +47,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-/*
-        FemtonSetup fs = new FemtonSetup(gameSize, 0);
-        bricksList = fs.createBricksObjectsAndList(femtonPanel);
-        setListeners();
-        moveBricks();*/
-        //newGame();
 
     }
 
@@ -73,18 +61,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
         femtonPanel.setBorder(gameAreaBorder);
         femtonPanel.setLayout(gameAreaLayout);
-       /* inputPanel.add(startKnapp);
-        startKnapp.addActionListener(this);
-        //startKnapp.addActionListener(new Drivers(bricksList, inputPanel));
-        inputPanel.setLayout(new FlowLayout());
-
-        add(femtonPanel);*/
-
-/*
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);*/
 
         FemtonSetup fs = new FemtonSetup(gameSize, 0);
         bricksList = fs.createBricksObjectsAndList(femtonPanel);
@@ -99,9 +75,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
                     moveBricks();
                     setBlackBrickPosition();
                     shuffleOK = true;
-                } //else {
-                //newGame();
-                // }
+                }
             }
         }
         firstStart=false;
@@ -137,31 +111,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
             e.printStackTrace();
         }
         setBlackBrickPosition();
-        //checkIfGameWon();
     }
-
-   /* public void gameWon(){
-        boolean arraySorted = true;
-
-        for (int i = 0; i < bricksList.size() - 1; i++) {
-            String currentText = bricksList.get(i).getText();
-            String nextText = bricksList.get(i + 1).getText();
-
-            if (!currentText.isEmpty() && !nextText.isEmpty()) {
-                int currentValue = Integer.parseInt(currentText);
-                int nextValue = Integer.parseInt(nextText);
-
-                if (currentValue > nextValue) {
-                    arraySorted = false;
-                    break;
-                }
-            }
-        }
-        if (arraySorted) {
-            JOptionPane.showMessageDialog(this, "Grattis, du vann spelet!");
-            //createGame();
-        }
-    }*/
 
     public boolean isSolvable() {
         int inversions = 0;
@@ -213,7 +163,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         }
         if (arraySorted) {
             JOptionPane.showMessageDialog(this, "Grattis, du vann spelet!");
-            //createGame();
         }
     }
 
@@ -277,8 +226,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
                 break;
             }
         }
-        //moveIfMovable(e.getClass());
-        //checkIfGameWon();
     }
 
     @Override

@@ -1,7 +1,5 @@
 package FemtonSpel_v_2;
 
-// jkdjkfbn
-// kjasvj
 
 import javax.swing.*;
 import javax.swing.border.SoftBevelBorder;
@@ -14,14 +12,11 @@ public class FemtonSetup {
 
     private int size;
     private int image;
-    //private Bricks bricks = new Bricks();
 
     public FemtonSetup(int size,int image){
         if(size>2 && size<=6) {
             this.size = size;
             this.image = 0;
-
-            //createBricksObjectsAndList();
         }
     }
     public ArrayList<Bricks> createBricksObjectsAndList(JPanel jp) {
@@ -40,7 +35,6 @@ public class FemtonSetup {
                     jl.setForeground(Color.BLACK);
                     jl.setBorder(border);
                     jl.setBackground(Color.YELLOW);
-                    //jl.addMouseListener(new FemtonGraphics());
                 }
             }
             Bricks br = new Bricks(jl, i+1);
