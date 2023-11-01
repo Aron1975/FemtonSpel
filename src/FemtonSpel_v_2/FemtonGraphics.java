@@ -15,7 +15,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     ArrayList<Bricks> bricksList = new ArrayList<>();
 
-    int newGameCounter = 0;
     boolean firstStart = true;
     int gameSize = 4;
     int blackBrickStartPosition = (gameSize * gameSize);
@@ -51,7 +50,6 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     }
 
     public void newGame() {
-        //gameSize = 4;
         blackBrickStartPosition = (gameSize * gameSize);
         gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
         gameAreaBorder = new LineBorder(Color.black, 3);
@@ -124,10 +122,8 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
             }
         }
         double rad = ((Math.ceil(((double) blackBrickCurrentPosition + 1) / gameSize)));
-        System.out.println("Svart på plats: " + blackBrickCurrentPosition);
         System.out.println("Inversions: " + inversions);
-        System.out.println("Svart på rad: " + rad);
-        System.out.println("Inv + rad: " + (inversions + rad));
+        //System.out.println("Inv + rad: " + (inversions + rad));
         boolean oddNrOfInversions = true;
         boolean oddNrOfInversionsPlusEmptyRaw = true;
         if (inversions % 2 == 0) {
@@ -187,19 +183,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startKnapp) {
-            if(newGameCounter == 0) {
-                gameSize = 4;
-            }
-            if(newGameCounter == 2) {
-                firstStart = true;
-                gameSize = 3;
-            }
-            if(newGameCounter == 4) {
-                firstStart = true;
-                gameSize = 5;
-            }
-            newGameCounter++;
-            newGame();
+            //newGame();
         }
 
         String selectedSize = (String) chooseGameSize.getSelectedItem();
@@ -214,7 +198,12 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
             } else if (selectedSize.equalsIgnoreCase("6x6")) {
                 gameSize = 6;
             }
+
+            if(e.getSource() == chooseGameSize) {
+                firstStart = true;
+            }
             newGame();
+
         }
     }
 
