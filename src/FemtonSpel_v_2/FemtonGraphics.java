@@ -17,8 +17,8 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     boolean firstStart = true;
     int gameSize = 4;
-    int blackBrickStartPosition = (gameSize * gameSize);
-    int blackBrickCurrentPosition;
+    int emptyBrickStartPosition = (gameSize * gameSize);
+    int emptyBrickCurrentPosition;
     final int PLAYAREASIZE = 400;
     JPanel femtonPanel = new JPanel();
     JPanel inputPanel = new JPanel();
@@ -50,9 +50,9 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     }
 
     public void newGame() {
-        blackBrickStartPosition = (gameSize * gameSize);
+        emptyBrickStartPosition = (gameSize * gameSize);
         gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
-        gameAreaBorder = new LineBorder(Color.black, 3);
+        gameAreaBorder = new LineBorder(Color.BLACK, 3);
 
         femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
         femtonPanel.setMinimumSize(femtonPanel.getPreferredSize());
@@ -71,7 +71,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
                 Collections.shuffle(bricksList);
                 if (isSolvable()) {
                     moveBricks();
-                    setBlackBrickPosition();
+                    setEmptyBrickPosition();
                     shuffleOK = true;
                 }
             }
@@ -85,11 +85,11 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         }
     }
 
-    public void setBlackBrickPosition() {
+    public void setEmptyBrickPosition() {
         int counter = 0;
         for (Bricks br : bricksList) {
-            if (br.getStartPosition() == blackBrickStartPosition) {
-                blackBrickCurrentPosition = counter;
+            if (br.getStartPosition() == emptyBrickStartPosition) {
+                emptyBrickCurrentPosition = counter;
                 break;
             }
             counter++;
@@ -108,7 +108,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setBlackBrickPosition();
+        setEmptyBrickPosition();
     }
 
     public boolean isSolvable() {
@@ -116,12 +116,12 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         for (int i = 0; i < gameSize * gameSize; i++) {
             for (int j = i + 1; j < gameSize * gameSize; j++) {
                 if ((bricksList.get(i).getStartPosition() > bricksList.get(j).getStartPosition()) &&
-                        bricksList.get(i).getStartPosition() != blackBrickStartPosition) {
+                        bricksList.get(i).getStartPosition() != emptyBrickStartPosition) {
                     inversions++;
                 }
             }
         }
-        double rad = ((Math.ceil(((double) blackBrickCurrentPosition + 1) / gameSize)));
+        double rad = ((Math.ceil(((double) emptyBrickCurrentPosition + 1) / gameSize)));
         System.out.println("Inversions: " + inversions);
         //System.out.println("Inv + rad: " + (inversions + rad));
         boolean oddNrOfInversions = true;
@@ -163,7 +163,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     }
 
     public void moveIfMovable(Bricks br) {
-        int indexOf16 = blackBrickCurrentPosition;
+        int indexOf16 = emptyBrickCurrentPosition;
         int indexOfThis = bricksList.indexOf(br);
         boolean movable = false;
         if ((indexOfThis + 1 == indexOf16 && (indexOfThis + 1) % gameSize != 0) || (indexOfThis - 1 == indexOf16 && (indexOf16 + 1) % gameSize != 0)) {
