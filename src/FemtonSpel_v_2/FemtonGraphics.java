@@ -58,11 +58,11 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
 
     public void newGame() {
         Collections.shuffle(bricksList);
-        moveBricks();
-        setBlackBrickPosition();
-        if (!isSolvable()) {
-            //System.out.println("NOT Solvable");
-        }
+        if (isSolvable()) {
+            moveBricks();
+            setBlackBrickPosition();
+        }else{newGame();}
+
     }
 
     public void setListeners() {
@@ -131,8 +131,8 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
                 }
             }
         }
-        //inversion +=
-        double rad = ((Math.ceil((blackBrickCurrentPosition + 1) / 4)) + 1);
+        double rad = ((Math.ceil(((double)blackBrickCurrentPosition + 1) / gameSize)));
+        System.out.println("Svart på plats: " + blackBrickCurrentPosition);
         System.out.println("Inversions: " + inversions);
         System.out.println("Svart på rad: " + rad);
         System.out.println("Inv + rad: " + (inversions + rad));
@@ -148,11 +148,11 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
             System.out.println("Solvable");
             return true;
         }
-        if ((gameSize % 2 == 0) && (!oddNrOfInversions)) {  //?????????????
+        if ((gameSize % 2 == 0) && (!oddNrOfInversionsPlusEmptyRaw)) {
             System.out.println("Solvable");
             return true;
         }
-        System.out.println("Inv odd: " + oddNrOfInversions + " Inv+raw odd: " + oddNrOfInversionsPlusEmptyRaw);
+        System.out.println("NOT Solvable");
         return false;
     }
 
@@ -179,19 +179,11 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         int indexOf16 = blackBrickCurrentPosition;
         int indexOfThis = bricksList.indexOf(br);
         boolean movable = false;
-        //if((indexOfThis+1 == indexOf16 && (indexOfThis+1)%4 != 0) || indexOfThis-1 == indexOf16) {
         if ((indexOfThis + 1 == indexOf16 && (indexOfThis + 1) % gameSize != 0) || (indexOfThis - 1 == indexOf16 && (indexOf16 + 1) % gameSize != 0)) {
             movable = true;
-          /*  Collections.swap(bricksList, indexOf16, indexOfThis);
-            moveBricks();
-            checkIfGameWon();*/
         }
-
         if ((indexOfThis + gameSize == indexOf16) || indexOfThis - gameSize == indexOf16) {
             movable = true;
-           /* Collections.swap(bricksList, indexOf16, indexOfThis);
-            moveBricks();
-            checkIfGameWon();*/
         }
         if (movable) {
             Collections.swap(bricksList, indexOf16, indexOfThis);
