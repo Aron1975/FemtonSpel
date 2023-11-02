@@ -50,33 +50,35 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
     }
 
     public void newGame() {
-        emptyBrickStartPosition = (gameSize * gameSize);
-        gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
-        gameAreaBorder = new LineBorder(Color.BLACK, 3);
+        if (firstStart) {
+            emptyBrickStartPosition = (gameSize * gameSize);
+            gameAreaLayout = new GridLayout(gameSize, gameSize, 1, 1);
+            gameAreaBorder = new LineBorder(Color.BLACK, 3);
 
-        femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
-        femtonPanel.setMinimumSize(femtonPanel.getPreferredSize());
-        femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
-        femtonPanel.setBorder(gameAreaBorder);
-        femtonPanel.setLayout(gameAreaLayout);
+            femtonPanel.setPreferredSize(new Dimension(PLAYAREASIZE, PLAYAREASIZE));
+            femtonPanel.setMinimumSize(femtonPanel.getPreferredSize());
+            femtonPanel.setMaximumSize(femtonPanel.getPreferredSize());
+            femtonPanel.setBorder(gameAreaBorder);
+            femtonPanel.setLayout(gameAreaLayout);
 
-        FemtonSetup fs = new FemtonSetup(gameSize, 0);
-        bricksList = fs.createBricksObjectsAndList(femtonPanel);
-        add(inputPanel);
-        setListeners();
-        moveBricks();
-        if (!firstStart) {
+            FemtonSetup fs = new FemtonSetup(gameSize, 0);
+            bricksList = fs.createBricksObjectsAndList(femtonPanel);
+            add(inputPanel);
+            setListeners();
+            moveBricks();
+            firstStart=false;
+        }
+        else{
             boolean shuffleOK = false;
             while (!shuffleOK) {
                 Collections.shuffle(bricksList);
+                setEmptyBrickPosition();
                 if (isSolvable()) {
                     moveBricks();
-                    setEmptyBrickPosition();
                     shuffleOK = true;
                 }
             }
         }
-        firstStart=false;
     }
 
     public void setListeners() {
@@ -123,7 +125,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         }
         double rad = ((Math.ceil(((double) emptyBrickCurrentPosition + 1) / gameSize)));
         System.out.println("Inversions: " + inversions);
-        //System.out.println("Inv + rad: " + (inversions + rad));
+        System.out.println("Rad: " +  rad);
         boolean oddNrOfInversions = true;
         boolean oddNrOfInversionsPlusEmptyRaw = true;
         if (inversions % 2 == 0) {
