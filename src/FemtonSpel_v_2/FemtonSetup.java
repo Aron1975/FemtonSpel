@@ -34,7 +34,8 @@ public class FemtonSetup {
                     jl.setFont(f);
                     jl.setForeground(Color.BLACK);
                     jl.setBorder(border);
-                    jl.setBackground(Color.YELLOW);
+                    Color co = new Color(20,200,10);
+                    jl.setBackground(co);
                 }
             }
             Bricks br = new Bricks(jl, i+1);

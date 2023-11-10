@@ -125,7 +125,7 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
         }
         double rad = ((Math.ceil(((double) emptyBrickCurrentPosition + 1) / gameSize)));
         System.out.println("Inversions: " + inversions);
-        System.out.println("Rad: " +  rad);
+        //System.out.println("Rad: " +  rad);
         boolean oddNrOfInversions = true;
         boolean oddNrOfInversionsPlusEmptyRaw = true;
         if (inversions % 2 == 0) {
@@ -204,9 +204,9 @@ public class FemtonGraphics extends JFrame implements ActionListener, MouseListe
             if(e.getSource() == chooseGameSize) {
                 firstStart = true;
             }
-            newGame();
-
+            //newGame();
         }
+        newGame();
     }
 
     @Override
